@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Tilemaps;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -40,9 +41,33 @@ public class PlayerController : MonoBehaviour
             OnGround = true;
         }
     }
-    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
 
-    
+        if (collision.gameObject.CompareTag("JumpBoost"))
+        {
+            StartCoroutine(WaitAndPrint());
+            force *= 2;
+            Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("LavaBoost"))
+        {
+            StartCoroutine(LavaStop());
+            LavaRising.speed = 0;
+            Destroy(collision.gameObject);
+        }
+        
+    }
+    IEnumerator WaitAndPrint()
+    {
+        yield return new WaitForSeconds(5f);
 
+        force /= 2;
+    }
+    IEnumerator LavaStop()
+    {
+        yield return new WaitForSeconds(5f);
 
+        LavaRising.speed = 2;
+    }
 }

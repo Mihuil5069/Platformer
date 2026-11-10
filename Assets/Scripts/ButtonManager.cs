@@ -18,7 +18,7 @@ public class ButtonManager : MonoBehaviour
         audioSource.loop = true;
         audioSource.clip = MenuMusic;
         audioSource.Play();
-        Time.timeScale = 0f;
+        Time.timeScale = 1f;
     }
 
     // Update is called once per frame

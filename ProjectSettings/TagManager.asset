@@ -11,6 +11,10 @@ TagManager:
   - Coin
   - Death
   - Spike
+  - JumpBoost
+  - LifeBoost
+  - Lava
+  - LavaBoost
   layers:
   - Default
   - TransparentFX

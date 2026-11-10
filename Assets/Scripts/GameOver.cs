@@ -26,7 +26,13 @@ public class GameOver : MonoBehaviour
         {
             Time.timeScale = 0f;
         }
-        
+        if (Lifes == 0)
+        {
+            GameOverScreen.SetActive(true);
+            TimeStop = true;
+            audioSource.PlayOneShot(DeathSound, 1);
+        }
+
     }
     public void OnCollisionEnter2D(Collision2D collision)
     {
@@ -42,11 +48,20 @@ public class GameOver : MonoBehaviour
             LifesCount.text = "Lifes:" + Lifes.ToString();
             audioSource.PlayOneShot(HitSound, 1f);
         }
-        if (Lifes == 0)
+        else if (collision.gameObject.CompareTag("Lava"))
         {
             GameOverScreen.SetActive(true);
             TimeStop = true;
-            audioSource.PlayOneShot(DeathSound, 1f);
+            audioSource.PlayOneShot(DeathSound, 1);
+        }
+    }
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("LifeBoost"))
+        {
+            Lifes += 1;
+            LifesCount.text = "Lifes:" + Lifes.ToString();
+            Destroy(collision.gameObject);
         }
     }
 }
